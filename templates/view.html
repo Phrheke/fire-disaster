@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ alert }}
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h1>{{ alert }}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date and Time</th>
+                <th>Location</th>
+                <th>Incident Type</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row.datetime }}</td>
+                <td>{{ row.location }}</td>
+                <td>{{ row.incident }}</td>
+                <td>{{ row.description }}</td>
+                <td>
+                    {% if row.image_path %}
+                    <a href="{{ url_for('static', filename='uploads/' + row.image_path) }}" target="_blank">
+                        <img src="{{ url_for('static', filename='uploads/' + row.image_path) }}" alt="Alert Image" style="max-width: 200px;">
+                    </a>
+                    {% else %}
+                    No Image
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showImage(imagePath) {
+        document.getElementById('modalImage').src = '/' + imagePath;
+        $('#imageModal').modal('show');
+    }
+</script>
+{% endblock %}

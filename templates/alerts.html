@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Issue Common Alert
+{% endblock %}
+
+{% block main %}
+<form id="alertForm" enctype="multipart/form-data" method="POST">
+    <div class="form-group">
+        <label for="calamity">Fire Incident Type</label>
+        <select class="form-control" id="calamity" name="calamity" required>
+            <option value="" disabled selected>Select Fire Incident Type</option>
+            <option value="structural fire">Structural Fire</option>
+            <option value="wildland fire">Wildland Fire</option>
+            <option value="vehicle fire">Vehicle Fire</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" name="location" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="image">Select Image:</label>
+        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#alertForm').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: '/commonalerts',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    showNotification(response.message);
+                },
+                error: function(xhr) {
+                    var response = JSON.parse(xhr.responseText);
+                    showNotification('Error: ' + response.message);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

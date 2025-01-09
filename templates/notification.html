@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Notification
+{% endblock %}
+
+{% block main %}
+<div class="notification-container">
+    <div class="notification-message">
+        {{ message }}
+    </div>
+    <a href="{{ url_for('menu') }}" class="btn btn-primary">Go Back</a>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style> 
+.notification-container {
+    background-color: #ff7043; /* Adjusted to a fire service theme */
+    color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.notification-message {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+</style>
+{% endblock %}

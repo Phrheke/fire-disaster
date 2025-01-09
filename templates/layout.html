@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags and other head content -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Nigeria Fire service Alert</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/static/styles.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="corner-image"></div>
+
+<nav class="navbar">
+    <div class="navbar-brand"><a href="/"><img src="../static/smngoz15dn0ovminq8.5b738d49.webp" alt="Logo" class="circle-image"><span class="red">Nigeria Fire service Alert</span></a></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/commonalerts">Issue Common Alert</a></li>
+            <li class="nav-item"><a class="nav-link" href="/viewcommonalerts">View Common Alerts</a></li>
+            <li class="nav-item"><a class="nav-link" href="/govtalerts">Issue Government Alert</a></li>
+            <li class="nav-item"><a class="nav-link" href="/viewgovtalerts">View Government Alerts</a></li>
+            <li class="nav-item"><a class="nav-link" href="/education">Public Education</a></li>
+            
+        </ul>
+    </div>
+</nav>
+
+<main class="container p-5">
+    {% block main %}
+    {% endblock %}
+</main>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="notificationMessage"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showNotification(message) {
+        document.getElementById('notificationMessage').innerText = message;
+        $('#notificationModal').modal('show');
+    }
+</script>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">© 2024 Nigeria Fire Service. All rights reserved.</span>
+    </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Issue Government Alert
+{% endblock %}
+
+{% block main %}
+<form id="govtAlertForm" enctype="multipart/form-data" method="POST">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+        <label for="calamity">Fire Incident Type</label>
+        <select class="form-control" id="calamity" name="calamity" required>
+            <option value="" disabled selected>Select Fire Incident Type</option>
+            <option value="Structural Fire">Structural Fire (Building on fire)</option>
+            <option value="Wildland Fire">Wildland Fire</option>
+            <option value="Vehicle Fire">Vehicle Fire</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" name="location" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="image">Select Image:</label>
+        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#govtAlertForm').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: '/govtalerts',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    showNotification(response.message);
+                },
+                error: function(xhr) {
+                    var response = JSON.parse(xhr.responseText);
+                    showNotification('Error: ' + response.message);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
